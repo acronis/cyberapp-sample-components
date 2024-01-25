@@ -1,0 +1,1130 @@
+{
+	"info": {
+		"_postman_id": "67aaa566-8c6b-404b-a415-cd07ad2ead95",
+		"name": "Callback Handler Scenarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29808204"
+	},
+	"item": [
+		{
+			"name": "CyberApp enablement",
+			"item": [
+				{
+					"name": "Enablement Read",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.enablement.read.ok.v1.0')\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response matches against the callback schema\", function () {\r",
+									"    const responseSchema = {\r",
+									"        \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"        \"$ref\": \"#/definitions/EnablementRead.OK\",\r",
+									"        \"definitions\": {\r",
+									"            \"EnablementRead.OK\": {\r",
+									"                \"type\": \"object\",\r",
+									"                \"properties\": {\r",
+									"                    \"payload\": {\r",
+									"                        \"type\": \"object\",\r",
+									"                        \"additionalProperties\": false,\r",
+									"                        \"properties\": {\r",
+									"                            \"vendor_tenant_id\": {\r",
+									"                                \"description\": \"Vendor's tenant id associated with authorization info\",\r",
+									"                                \"type\": \"string\"\r",
+									"                            },\r",
+									"                            \"acronis_tenant_id\": {\r",
+									"                                \"type\": \"string\",\r",
+									"                                \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\",\r",
+									"                                \"description\": \"Acronis tenant id used for application enablement\"\r",
+									"                            }\r",
+									"                        },\r",
+									"                        \"required\": [\r",
+									"                            \"vendor_tenant_id\"\r",
+									"                        ]\r",
+									"                    }\r",
+									"                },\r",
+									"                \"required\": [\r",
+									"                    \"payload\"\r",
+									"                ]\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.jsonSchema(responseSchema)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Disabled application)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:19:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "309"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.enablement.read.ok.v1.0\",\n    \"request_id\": \"a40012e1-558a-4e23-bbee-0a0d376189d2\",\n    \"response_id\": \"3d8ed86e-57ed-4926-9f0d-13a100416890\",\n    \"payload\": {\n        \"vendor_tenant_id\": \"b9c1a52c-280e-45cd-be77-ba927fc42950\"\n    }\n}"
+						},
+						{
+							"name": "200 (Active application)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:19:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "309"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.enablement.read.ok.v1.0\",\n    \"request_id\": \"a40012e1-558a-4e23-bbee-0a0d376189d2\",\n    \"response_id\": \"3d8ed86e-57ed-4926-9f0d-13a100416890\",\n    \"payload\": {\n        \"vendor_tenant_id\": \"b9c1a52c-280e-45cd-be77-ba927fc42950\",\n        \"acronis_tenant_id\": \"0dd47bbb-d065-447f-ab7c-06e05887078b\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Enablement Write",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.enablement.write.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.write.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"acronis_tenant_id\": \"0dd47bbb-d065-447f-ab7c-06e05887078b\",\r\n        \"vendor_tenant_id\": \"b9c1a52c-280e-45cd-be77-ba927fc42950\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Successful activation)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.enablement.write.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.write.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"acronis_tenant_id\": \"0dd47bbb-d065-447f-ab7c-06e05887078b\",\r\n        \"vendor_tenant_id\": \"b9c1a52c-280e-45cd-be77-ba927fc42950\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:22:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0\",\n    \"request_id\": \"dd19e26c-4889-43b3-925e-a59ad2ceb662\",\n    \"response_id\": \"7f51d0a2-826b-4683-b383-e5e089094140\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Enablement Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.reset.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Successful deactivation)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.enablement.reset.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:22:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0\",\n    \"request_id\": \"270c89e6-b569-40fd-8b70-083932012a94\",\n    \"response_id\": \"44d5912b-67c6-40f5-afd2-ff0b7757e106\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customer mapping",
+			"item": [
+				{
+					"name": "Topology Read",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.topology.read.ok.v1.0')\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response matches against the callback schema\", function () {\r",
+									"    const responseSchema = {\r",
+									"        \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"        \"$ref\": \"#/definitions/TopologyRead.OK\",\r",
+									"        \"definitions\": {\r",
+									"            \"TopologyRead.OK\": {\r",
+									"                \"type\": \"object\",\r",
+									"                \"properties\": {\r",
+									"                    \"payload\": {\r",
+									"                        \"type\": \"object\",\r",
+									"                        \"additionalProperties\": false,\r",
+									"                        \"properties\": {\r",
+									"                            \"items\": {\r",
+									"                                \"type\": \"array\",\r",
+									"                                \"items\": {\r",
+									"                                    \"type\": \"object\",\r",
+									"                                    \"additionalProperties\": false,\r",
+									"                                    \"properties\": {\r",
+									"                                        \"id\": {\r",
+									"                                            \"type\": \"string\"\r",
+									"                                        },\r",
+									"                                        \"name\": {\r",
+									"                                            \"type\": \"string\"\r",
+									"                                        }\r",
+									"                                    },\r",
+									"                                    \"required\": [\r",
+									"                                        \"id\",\r",
+									"                                        \"name\"\r",
+									"                                    ]\r",
+									"                                }\r",
+									"                            },\r",
+									"                            \"paging\": {\r",
+									"                                \"anyOf\": [\r",
+									"                                    {\r",
+									"                                        \"description\": \"Paging offset. Valid for offset-based paging\",\r",
+									"                                        \"type\": \"object\",\r",
+									"                                        \"additionalProperties\": false,\r",
+									"                                        \"properties\": {\r",
+									"                                            \"offset\": {\r",
+									"                                                \"type\": \"integer\"\r",
+									"                                            },\r",
+									"                                            \"limit\": {\r",
+									"                                                \"type\": \"integer\"\r",
+									"                                            },\r",
+									"                                            \"total_count\": {\r",
+									"                                                \"type\": \"integer\"\r",
+									"                                            }\r",
+									"                                        },\r",
+									"                                        \"required\": [\r",
+									"                                            \"offset\",\r",
+									"                                            \"limit\",\r",
+									"                                            \"total_count\"\r",
+									"                                        ]\r",
+									"                                    },\r",
+									"                                    {\r",
+									"                                        \"description\": \"Paging cursors. Valid for cursor-based paging\",\r",
+									"                                        \"type\": \"object\",\r",
+									"                                        \"additionalProperties\": false,\r",
+									"                                        \"properties\": {\r",
+									"                                            \"before\": {\r",
+									"                                                \"type\": \"string\"\r",
+									"                                            },\r",
+									"                                            \"after\": {\r",
+									"                                                \"type\": \"string\"\r",
+									"                                            }\r",
+									"                                        }\r",
+									"                                    }\r",
+									"                                ]\r",
+									"                            }\r",
+									"                        },\r",
+									"                        \"required\": [\r",
+									"                            \"items\"\r",
+									"                        ]\r",
+									"                    }\r",
+									"                },\r",
+									"                \"required\": [\r",
+									"                    \"payload\"\r",
+									"                ]\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.jsonSchema(responseSchema)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.topology.read.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.topology.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Listed all MSP's customers)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.topology.read.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.topology.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:22:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "336609"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.topology.read.ok.v1.0\",\n    \"request_id\": \"37a58a31-dcaa-4c35-8066-9f6db7beeb90\",\n    \"response_id\": \"7c166202-12ba-429d-a998-a122e68d009b\",\n    \"payload\": {\n        \"items\": [\n            {\n                \"id\": \"36271ce5-d0c1-4c15-a09a-ff1ba35c6c0c\",\n                \"name\": \"Mary Jane Inc.\"\n            },\n            {\n                \"id\": \"44efe0b3-a9cd-4a23-9107-2e3e4019dd01\",\n                \"name\": \"John Dow Inc.\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Tenant Mapping Read",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.tenant_mapping.read.ok.v1.0')\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response matches against the callback schema\", function () {\r",
+									"    const responseSchema = {\r",
+									"        \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"        \"$ref\": \"#/definitions/TenantMappingRead.OK\",\r",
+									"        \"definitions\": {\r",
+									"            \"TenantMappingRead.OK\": {\r",
+									"                \"type\": \"object\",\r",
+									"                \"properties\": {\r",
+									"                    \"payload\": {\r",
+									"                        \"type\": \"object\",\r",
+									"                        \"additionalProperties\": false,\r",
+									"                        \"properties\": {\r",
+									"                            \"items\": {\r",
+									"                                \"type\": \"array\",\r",
+									"                                \"items\": {\r",
+									"                                    \"description\": \"Vendor's tenant link to Acronis tenant.\",\r",
+									"                                    \"type\": \"object\",\r",
+									"                                    \"properties\": {\r",
+									"                                        \"vendor_tenant_id\": {\r",
+									"                                            \"type\": \"string\"\r",
+									"                                        },\r",
+									"                                        \"acronis_tenant_id\": {\r",
+									"                                            \"type\": \"string\",\r",
+									"                                            \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\"\r",
+									"                                        }\r",
+									"                                    },\r",
+									"                                    \"required\": [\r",
+									"                                        \"vendor_tenant_id\"\r",
+									"                                    ]\r",
+									"                                }\r",
+									"                            }\r",
+									"                        },\r",
+									"                        \"required\": [\r",
+									"                            \"items\"\r",
+									"                        ]\r",
+									"                    }\r",
+									"                },\r",
+									"                \"required\": [\r",
+									"                    \"payload\"\r",
+									"                ]\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.jsonSchema(responseSchema)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.tenant_mapping.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Listed mapping information of MSP's customers)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.empty.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.tenant_mapping.read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:23:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "941"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.tenant_mapping.read.ok.v1.0\",\n    \"request_id\": \"4b8f1299-19bd-40c5-8a0a-0ed4eb4ff5c2\",\n    \"response_id\": \"cb7a911c-4d29-42ba-8dc0-2cfb46932c3a\",\n    \"payload\": {\n        \"items\": [\n            {\n                \"vendor_tenant_id\": \"36271ce5-d0c1-4c15-a09a-ff1ba35c6c0c\"\n            },\n            {\n                \"vendor_tenant_id\": \"44efe0b3-a9cd-4a23-9107-2e3e4019dd01\",\n                \"acronis_tenant_id\": \"9da047ce-9db4-4c07-9532-4f3a347de22e\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Tenant Mapping Write",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', 'cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.tenant_mapping.write.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.tenant_mapping.write.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"modified\": [\r\n            {\r\n                \"vendor_tenant_id\": \"36271ce5-d0c1-4c15-a09a-ff1ba35c6c0c\",\r\n                \"acronis_tenant_id\": \"954ef80f-5acb-405b-81df-e850606b406d\"\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 (Successful mapping)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~a.p.tenant_mapping.write.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~a.p.tenant_mapping.write.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"modified\": [\r\n            {\r\n                \"vendor_tenant_id\": \"36271ce5-d0c1-4c15-a09a-ff1ba35c6c0c\",\r\n                \"acronis_tenant_id\": \"954ef80f-5acb-405b-81df-e850606b406d\"\r\n            }\r\n        ]\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}",
+									"host": [
+										"{{BaseUrl}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.24.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Dec 2023 16:25:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"cti.a.p.acgw.response.v1.0~a.p.success_no_content.v1.0\",\n    \"request_id\": \"e588d5dc-4dd6-4794-a78a-46045b201068\",\n    \"response_id\": \"192da2d6-a9c1-4322-9f38-80f93adf4bba\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Custom callback examples",
+			"item": [
+				{
+					"name": "Read Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const AppCode = pm.variables.get('AppCode')\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', `cti.a.p.acgw.response.v1.0~${AppCode}.users_read_success.v1.0`)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~{{AppCode}}.users_read.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~{{AppCode}}.users_read.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const AppCode = pm.variables.get('AppCode')\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', `cti.a.p.acgw.response.v1.0~${AppCode}.reset_password_success.v1.0`)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~{{AppCode}}.reset_password.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~{{AppCode}}.reset_password.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"id\": \"<user_id>\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const AppCode = pm.variables.get('AppCode')\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Response has correct callback response type\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('type', `cti.a.p.acgw.response.v1.0~${AppCode}.user_write_success.v1.0`)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"cti.a.p.acgw.request.v1.0~{{AppCode}}.user_write.v1.0\",\r\n    \"request_id\": \"{{$guid}}\",\r\n    \"created_at\": \"{{$isoTimestamp}}\",\r\n    \"context\": {\r\n        \"callback_id\": \"cti.a.p.acgw.callback.v1.0~{{AppCode}}.user_write.v1.0\",\r\n        \"endpoint_id\": \"cti.a.p.acgw.endpoint.v1.0~{{AppCode}}.endpoint.v1.0\",\r\n        \"tenant_id\": \"{{TenantId}}\",\r\n        \"datacenter_url\": \"{{CloudUrl}}\"\r\n    },\r\n    \"payload\": {\r\n        \"login\": \"test.user\",\r\n        \"name\": \"User\",\r\n        \"email\": \"user@example.net\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}",
+							"host": [
+								"{{BaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{EncryptedCyberAppAuth}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-CyberApp-Auth",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"function base64EncodeVariable(name) {",
+					"    const auth = pm.variables.replaceIn(`{{${name}}}`)",
+					"    const base64Hash = CryptoJS.enc.Utf8.parse(auth)",
+					"    const base64 = CryptoJS.enc.Base64.stringify(base64Hash)",
+					"    pm.collectionVariables.set(`Encrypted${name}`, base64)",
+					"}",
+					"base64EncodeVariable('CyberAppAuth')",
+					"base64EncodeVariable('CyberAppExtra')",
+					"",
+					"pm.request.headers.add({",
+					"    'key': 'X-CyberApp-Extra',",
+					"    'value': '{{EncryptedCyberAppExtra}}'",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const requestData = JSON.parse(pm.request.body)",
+					"",
+					"pm.test(\"Response is JSON\", () => {",
+					"    const contentType = pm.response.headers.get(\"Content-Type\")",
+					"    pm.expect(contentType).to.contain(\"application/json\")",
+					"})",
+					"",
+					"pm.test('Request is valid according to base schema', function () {",
+					"    const requestSchema = {",
+					"        \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+					"        \"$ref\": \"#/definitions/Request\",",
+					"        \"definitions\": {",
+					"            \"Request\": {",
+					"                \"type\": \"object\",",
+					"                \"additionalProperties\": false,",
+					"                \"properties\": {",
+					"                    \"request_id\": {",
+					"                        \"type\": \"string\",",
+					"                        \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\"",
+					"                    },",
+					"                    \"type\": {",
+					"                        \"type\": \"string\",",
+					"                        \"pattern\": \"^cti\\\\.([a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(\\\\.[\\\\d]+){0,2})([~][a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(?:\\\\.[\\\\d]+){0,2})*(~[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})?$\"",
+					"                    },",
+					"                    \"payload\": {",
+					"                        \"type\": \"object\"",
+					"                    },",
+					"                    \"context\": {",
+					"                        \"type\": \"object\",",
+					"                        \"properties\": {",
+					"                            \"callback_id\": {",
+					"                                \"type\": \"string\",",
+					"                                \"pattern\": \"^cti\\\\.([a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(\\\\.[\\\\d]+){0,2})([~][a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(?:\\\\.[\\\\d]+){0,2})*(~[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})?$\",",
+					"                            },",
+					"                            \"endpoint_id\": {",
+					"                                \"type\": \"string\",",
+					"                                \"pattern\": \"^cti\\\\.([a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(\\\\.[\\\\d]+){0,2})([~][a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(?:\\\\.[\\\\d]+){0,2})*(~[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})?$\",",
+					"                            },",
+					"                            \"tenant_id\": {",
+					"                                \"type\": \"string\",",
+					"                                \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\",",
+					"                            }",
+					"                        },",
+					"                        \"required\": [",
+					"                            \"callback_id\",",
+					"                            \"endpoint_id\",",
+					"                            \"tenant_id\"",
+					"                        ]",
+					"                    },",
+					"                    \"created_at\": {",
+					"                        \"type\": \"string\",",
+					"                        \"format\": \"date-time\"",
+					"                    }",
+					"                },",
+					"                \"required\": [",
+					"                    \"request_id\",",
+					"                    \"type\",",
+					"                    \"context\",",
+					"                    \"created_at\"",
+					"                ]",
+					"            }",
+					"        }",
+					"    }",
+					"",
+					"    pm.expect(requestData).to.have.jsonSchema(requestSchema)",
+					"})",
+					"",
+					"pm.test('Response is valid according to base schema', function () {",
+					"    const responseSchema = {",
+					"        \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+					"        \"$ref\": \"#/definitions/Response\",",
+					"        \"definitions\": {",
+					"            \"Response\": {",
+					"                \"type\": \"object\",",
+					"                \"additionalProperties\": false,",
+					"                \"properties\": {",
+					"                    \"response_id\": {",
+					"                        \"type\": \"string\",",
+					"                        \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\",",
+					"                    },",
+					"                    \"request_id\": {",
+					"                        \"type\": \"string\",",
+					"                        \"pattern\": \"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\",",
+					"                    },",
+					"                    \"type\": {",
+					"                    \"type\": \"string\",",
+					"                    \"pattern\": \"^cti\\\\.([a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(\\\\.[\\\\d]+){0,2})([~][a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_]*\\\\.[a-z][a-z0-9_.]+\\\\.v[\\\\d]+(?:\\\\.[\\\\d]+){0,2})*(~[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})?$\"",
+					"                    },",
+					"                    \"payload\": {",
+					"                        \"type\": \"object\"",
+					"                    }",
+					"                },",
+					"                \"required\": [",
+					"                    \"response_id\",",
+					"                    \"request_id\",",
+					"                    \"type\"",
+					"                ]",
+					"            }",
+					"        }",
+					"    }",
+					"",
+					"    pm.expect(pm.response.json()).to.have.jsonSchema(responseSchema)",
+					"})",
+					"",
+					"pm.test(\"Request ID matches the request ID provided in response\", function () {",
+					"    pm.expect(pm.response.json()).to.have.property('request_id', requestData['request_id'])",
+					"})"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CyberAppAuth",
+			"value": "username:{\"password\": \"password\"}",
+			"type": "default"
+		},
+		{
+			"key": "CyberAppExtra",
+			"value": "{}",
+			"type": "default"
+		},
+		{
+			"key": "EncryptedCyberAppAuth",
+			"value": ""
+		},
+		{
+			"key": "EncryptedCyberAppExtra",
+			"value": ""
+		},
+		{
+			"key": "AppCode",
+			"value": "vendor.app",
+			"type": "default"
+		},
+		{
+			"key": "BaseUrl",
+			"value": "http://127.0.0.1:8080",
+			"type": "string"
+		},
+		{
+			"key": "TenantId",
+			"value": "00000000-0000-0000-0000-000000000000",
+			"type": "string"
+		},
+		{
+			"key": "CloudUrl",
+			"value": "https://eu8-cloud.acronis.com",
+			"type": "string"
+		}
+	]
+}
