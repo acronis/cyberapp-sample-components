@@ -25,7 +25,7 @@ With the callback handler, your service can receive callback requests from Acron
 
 The following diagram shows how Acronis communicates with the callback handler:
 
-![](https://developer.acronis.com/doc/cyberapp/latest/guide/_images/fig-api_callbacks_structure.png)
+![](./assets/fig-api_callbacks_structure.png)
 
 The main scenarios that the callback handler must implement are application enablement and customer mapping. They are required for the service providers to be able to configure your CyberApp and establish the correspondence between the end customers in your system and Acronis.
 
@@ -41,7 +41,7 @@ With the connector, your service can send the requests to Acronis API to manage 
 
 The following diagram shows how the connector communicates with Acronis and its relationship to the callback handler:
 
-![](https://developer.acronis.com/doc/cyberapp/latest/guide/_images/connector.png)
+![](./assets/connector.png)
 
 For example, the connector may push the alerts from a particular organization in your service to the corresponding tenant in Acronis. Those alerts will be displayed in the Acronis UI in the Alerts section.
 
