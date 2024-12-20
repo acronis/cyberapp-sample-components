@@ -1,5 +1,5 @@
 # ************************************************************
-# Copyright © 2003-2023 Acronis International GmbH.
+# Copyright © 2003-2024 Acronis International GmbH.
 # This source code is distributed under MIT software license.
 # ************************************************************
 
@@ -24,7 +24,7 @@ def _get_authenticated_user(db: sqlite3.Connection, identity: str, password: str
 
 
 async def index(_: web.Request) -> web.Response:
-    return web.Response(text='Hello there! Send POST requests to the /callback_handler endpoint.', content_type='text/plain')
+    return web.Response(text='Hello there! Send POST requests to the /callback endpoint.', content_type='text/plain')
 
 
 async def callback_handler(request: web.Request) -> web.Response:

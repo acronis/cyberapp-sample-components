@@ -16,7 +16,7 @@ The sample code is written in Python and provides:
 * An example of the database built with SQLite3.
 * A web server that implements a callback handler with:
   * An implementation of predefined callbacks (application enablement, customer mapping).
-  * An example of custom callbacks (reading users and creating a user).
+  * An example of custom callbacks (CRUD operations for users management).
 * An example of the basic connector that posts new alerts and workloads to Acronis.
 
 ### About callback handler
@@ -120,14 +120,20 @@ The sample code is located in `./server/callbacks/enablement.py`.
 
 #### Custom callbacks
 
+##### Users management
+
+Users management callbacks demonstrate how users can be managed with basic CRUD operations.
+
 The callback handler implements the following custom callbacks:
 
 * `cti.a.p.acgw.callback.v1.0~{APP_CODE}.users_read.v1.0` - Reads the list of users that are registered in the user's organization.
-* `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_write.v1.0` - Creates a new user in the user's organization without a password. Note that login and email are unique and an attempt to add a user with already existing values will fail.
+* `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_update.v1.0` - Updates a user by user ID. Can update username and email.
+* `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_write.v1.0` - Creates a new user in the user's organization without a password. Note that login is unique and an attempt to add a user with already existing login will fail.
+* `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_delete.v1.0` - Deletes a user by user ID.
 
-Where `{APP_CODE}` is the template variable that is substituted with the value specified in the `./constants.py`.
+Where `{APP_CODE}` is the template variable that is substituted with the value specified in `./constants.py`.
 
-##### Read users callback
+###### Read users callback
 
 **Request**
 
@@ -176,7 +182,7 @@ Callback request schema:
   }
   ```
 
-##### Write user callback
+###### Write user callback
 
 **Request**
 
@@ -210,6 +216,80 @@ Callback request schema:
 * Status code: `200`
   
   Response type: `cti.a.p.acgw.response.v1.0~{APP_CODE}.user_write_success.v1.0`
+
+  Schema:
+  ```json
+  {}
+  ```
+
+###### Update user callback
+
+**Request**
+
+Callback ID: `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_update.v1.0`
+
+Callback request type: `cti.a.p.acgw.request.v1.0~{APP_CODE}.user_update.v1.0`
+
+Callback request schema:
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        }
+    },
+    "required": ["id", "name", "email"]
+}
+```
+
+**Responses**
+
+* Status code: `200`
+  
+  Response type: `cti.a.p.acgw.response.v1.0~{APP_CODE}.user_update_success.v1.0`
+
+  Schema:
+  ```json
+  {}
+  ```
+
+###### Update user callback
+
+**Request**
+
+Callback ID: `cti.a.p.acgw.callback.v1.0~{APP_CODE}.user_delete.v1.0`
+
+Callback request type: `cti.a.p.acgw.request.v1.0~{APP_CODE}.user_delete.v1.0`
+
+Callback request schema:
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        }
+    },
+    "required": ["id"]
+}
+```
+
+**Responses**
+
+* Status code: `200`
+  
+  Response type: `cti.a.p.acgw.response.v1.0~{APP_CODE}.user_delete_success.v1.0`
 
   Schema:
   ```json

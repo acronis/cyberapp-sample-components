@@ -1,12 +1,12 @@
 # ************************************************************
-# Copyright © 2003-2023 Acronis International GmbH.
+# Copyright © 2003-2024 Acronis International GmbH.
 # This source code is distributed under MIT software license.
 # ************************************************************
 
-import server.callbacks.custom as custom
 import server.callbacks.enablement as enablement
+import server.callbacks.user_management as user_management
 
 CALLBACKS_MAPPING = {
     **enablement.mapping,
-    **custom.mapping
+    **user_management.mapping,
 }

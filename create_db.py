@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # ************************************************************
-# Copyright © 2003-2023 Acronis International GmbH.
+# Copyright © 2003-2024 Acronis International GmbH.
 # This source code is distributed under MIT software license.
 # ************************************************************
 
